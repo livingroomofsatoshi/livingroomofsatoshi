@@ -18,100 +18,15 @@ Australian Bitcoin Exchange rate, updated every 30 seconds.
 
         {"amount":525.67,"currency":"AUD"}
 
-# Group Bitcoin BPAY Bills
-Pay any BPAY bill with bitcoin by POSTing to the endpoint below. 
-
-The POST response will contain a *bitcoin_payment_address* and *bitcoin_payment_amount* for you to make payment to.  
-Payment must be made within 5 minutes, to ensure that the current exchange rate is used. 
-
-The bill's status will be updated to PAID when your bitcoin payment is received.
-
-|Parameter name|Used in |Description|
-|:-------------|:-------|:-------------|
-| amount      |POST, GET| Australian Dollar Amount (numeric) |
-| biller       |POST, GET| BPAY biller code (numeric)      |
-| ref |POST, GET| BPAY Reference number (numeric)      |
-| id |GET| unique id of the bill (numeric)      |
-| status |GET| Bill Status (UNPAID, PAID, ERROR)      |
-|bitcoin_payment_address|GET|Bitcoin address to make payment to|
-|bitcoin_payment_amount|GET|Bitcoin amount to pay (numeric). Must be paid immediately after bill is created or refreshed. <br>Bill can be refreshed by simply doing a GET on the existing bill. <br>If the bill status is PAID, this field will show the actual bitcoin amount paid.|
-
-## BPAY Bills [/bills/bpay]
-
-### Create a BPAY Bill [POST]
-
-+ Request (application/json)
-
-        { 
-          "amount":123.45, 
-          "biller":"23796",
-          "ref":"1000023451"
-        }
-
-+ Response 201 (application/json)
-
-        {
-          "id":1,
-          "amount":123.45,
-          "biller":"23796",
-          "ref":"1000023451",
-          "status":"UNPAID",
-          "bitcoin_payment_address":"1AaxRWDPRbxXvYfFCjwNw4zQSf2tBXj9UA",
-          "bitcoin_payment_amount":0.23723
-        }
-
-+ Response 400 (application/json)
-        
-        [{"field":"biller","message":"Biller is unknown."}]
-
-
-### List all BPAY Bills [GET]
-+ Response 200 (application/json)
-
-        [{
-          "id":1,
-          "amount":123.45,
-          "biller":"23796",
-          "ref":"1000023451",
-          "status":"UNPAID",
-          "bitcoin_payment_address":"1AaxRWDPRbxXvYfFCjwNw4zQSf2tBXj9UA",
-          "bitcoin_payment_amount":0.23723
-        },{
-          "id":2,
-          "amount":2330.00,
-          "biller":"1818",
-          "ref":"3999229",
-          "status":"PAID",
-          "bitcoin_payment_address":"1JkftJEc5ZBAJH8aZch5FUgNq3H87oe9tw",
-          "bitcoin_payment_amount":4.99871
-        }]
-
-     
-## BPAY Bill [/bills/bpay/{id}]
-
-+ Parameters
-    + id (required, number) ... Numeric `id` of the Bill
-
-### Retrieve a single BPAY Bill [GET]
-+ Response 200 (application/json)
-
-        {
-          "id":1,
-          "amount":123.45,
-          "biller":"23796",
-          "ref":"1000023451",
-          "status":"UNPAID",
-          "bitcoin_payment_address":"1AaxRWDPRbxXvYfFCjwNw4zQSf2tBXj9UA",
-          "bitcoin_payment_amount":0.23723
-        }
         
 # Group Bitcoin Bank Transfer
 Pay bitcoin to any Australian Bank Account (even your own!) using Direct Bank Transfer details (BSB and Account number).
 
-The POST response will contain a *bitcoin_payment_address* and *bitcoin_payment_amount*, which you can make payment to. 
-Payment must be made within 5 minutes, to ensure that the current exchange rate is used.
+The POST response will contain a *bitcoin_payment_address* and *bitcoin_payment_amount*, which you can make payment to. Payment must be made within 5 minutes, to ensure that the current exchange rate is used.
 
 The bank transfer's status will be updated to PAID when your bitcoin payment is received.
+
+If payment happens before 5pm Australian Eastern Standard time, funds will generally arrive in the bank account within 2 business days, depending on the bank.
 
 
 |Parameter name|Used in |Description|
@@ -193,3 +108,90 @@ The bank transfer's status will be updated to PAID when your bitcoin payment is 
           "bitcoin_payment_amount":0.49295
         }
                 
+# Group Bitcoin BPAY Bills
+Pay any BPAY bill with bitcoin by POSTing to the endpoint below. 
+
+The POST response will contain a *bitcoin_payment_address* and *bitcoin_payment_amount* for you to make payment to. Payment must be made within 5 minutes, to ensure that the current exchange rate is used. 
+
+The bill's status will be updated to PAID when your bitcoin payment is received. 
+
+If you submit your payment before 5pm on a Bank Business Day, the biller will acknowledge the payment as having been made on that day and should process the payment on the next banking business day. If you submit a payment on a weekend or public holiday or you missed the 5pm cutoff time, the biller will receive the payment within 2 banking business days.
+
+|Parameter name|Used in |Description|
+|:-------------|:-------|:-------------|
+| amount      |POST, GET| Australian Dollar Amount (numeric) |
+| biller       |POST, GET| BPAY biller code (numeric)      |
+| ref |POST, GET| BPAY Reference number (numeric)      |
+| id |GET| unique id of the bill (numeric)      |
+| status |GET| Bill Status (UNPAID, PAID, ERROR)      |
+|bitcoin_payment_address|GET|Bitcoin address to make payment to|
+|bitcoin_payment_amount|GET|Bitcoin amount to pay (numeric). Must be paid immediately after bill is created or refreshed. <br>Bill can be refreshed by simply doing a GET on the existing bill. <br>If the bill status is PAID, this field will show the actual bitcoin amount paid.|
+
+## BPAY Bills [/bills/bpay]
+
+### Create a BPAY Bill [POST]
+
++ Request (application/json)
+
+        { 
+          "amount":123.45, 
+          "biller":"23796",
+          "ref":"1000023451"
+        }
+
++ Response 201 (application/json)
+
+        {
+          "id":1,
+          "amount":123.45,
+          "biller":"23796",
+          "ref":"1000023451",
+          "status":"UNPAID",
+          "bitcoin_payment_address":"1AaxRWDPRbxXvYfFCjwNw4zQSf2tBXj9UA",
+          "bitcoin_payment_amount":0.23723
+        }
+
++ Response 400 (application/json)
+        
+        [{"field":"biller","message":"Biller is unknown."}]
+
+
+### List all BPAY Bills [GET]
++ Response 200 (application/json)
+
+        [{
+          "id":1,
+          "amount":123.45,
+          "biller":"23796",
+          "ref":"1000023451",
+          "status":"UNPAID",
+          "bitcoin_payment_address":"1AaxRWDPRbxXvYfFCjwNw4zQSf2tBXj9UA",
+          "bitcoin_payment_amount":0.23723
+        },{
+          "id":2,
+          "amount":2330.00,
+          "biller":"1818",
+          "ref":"3999229",
+          "status":"PAID",
+          "bitcoin_payment_address":"1JkftJEc5ZBAJH8aZch5FUgNq3H87oe9tw",
+          "bitcoin_payment_amount":4.99871
+        }]
+
+     
+## BPAY Bill [/bills/bpay/{id}]
+
++ Parameters
+    + id (required, number) ... Numeric `id` of the Bill
+
+### Retrieve a single BPAY Bill [GET]
++ Response 200 (application/json)
+
+        {
+          "id":1,
+          "amount":123.45,
+          "biller":"23796",
+          "ref":"1000023451",
+          "status":"UNPAID",
+          "bitcoin_payment_address":"1AaxRWDPRbxXvYfFCjwNw4zQSf2tBXj9UA",
+          "bitcoin_payment_amount":0.23723
+        }
