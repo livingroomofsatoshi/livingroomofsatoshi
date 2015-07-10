@@ -35,6 +35,7 @@ If payment happens before 5pm Australian Eastern Standard time, funds will gener
 | bsb       |POST, GET| Bank BSB (numeric)      |
 | account_number |POST, GET| Bank Account Number (numeric)      |
 | description |POST, GET| This will appear on the payee's bank statement (String, max 18 characters, optional)      |
+| email |POST,GET| A comma separated list of email addresses to send payment confirmation receipts to. e.g. "one@example.com" or "one@example.com,two@example.com" <br/> (String, optional)|
 | id |GET| unique id of the bill (numeric)      |
 | status |GET| Bill Status (UNPAID, PAID, ERROR)      |
 |bitcoin_payment_address|GET|Bitcoin address to make payment to|
@@ -128,6 +129,7 @@ If you submit your payment before 5pm on a Bank Business Day, the biller will ac
 | amount      |POST, GET| Australian Dollar Amount (numeric) |
 | biller       |POST, GET| BPAY biller code (numeric)      |
 | ref |POST, GET| BPAY Reference number (numeric)      |
+| email |POST,GET| A comma separated list of email addresses to send payment confirmation receipts to. e.g. "one@example.com" or "one@example.com,two@example.com" <br/> (String, optional)|
 | id |GET| unique id of the bill (numeric)      |
 | status |GET| Bill Status (UNPAID, PAID, ERROR)      |
 |bitcoin_payment_address|GET|Bitcoin address to make payment to|
@@ -152,6 +154,7 @@ If you submit your payment before 5pm on a Bank Business Day, the biller will ac
           "amount":123.45,
           "biller":"23796",
           "ref":"1000023451",
+          "email":"",
           "status":"UNPAID",
           "bitcoin_payment_address":"1AaxRWDPRbxXvYfFCjwNw4zQSf2tBXj9UA",
           "bitcoin_payment_amount":0.23723
@@ -170,6 +173,7 @@ If you submit your payment before 5pm on a Bank Business Day, the biller will ac
           "amount":123.45,
           "biller":"23796",
           "ref":"1000023451",
+          "email":"",
           "status":"UNPAID",
           "bitcoin_payment_address":"1AaxRWDPRbxXvYfFCjwNw4zQSf2tBXj9UA",
           "bitcoin_payment_amount":0.23723
@@ -178,6 +182,7 @@ If you submit your payment before 5pm on a Bank Business Day, the biller will ac
           "amount":2330.00,
           "biller":"1818",
           "ref":"3999229",
+          "email":"one@example.com,two@example.com",
           "status":"PAID",
           "bitcoin_payment_address":"1JkftJEc5ZBAJH8aZch5FUgNq3H87oe9tw",
           "bitcoin_payment_amount":4.99871
@@ -197,6 +202,7 @@ If you submit your payment before 5pm on a Bank Business Day, the biller will ac
           "amount":123.45,
           "biller":"23796",
           "ref":"1000023451",
+          "email":"",
           "status":"UNPAID",
           "bitcoin_payment_address":"1AaxRWDPRbxXvYfFCjwNw4zQSf2tBXj9UA",
           "bitcoin_payment_amount":0.23723
