@@ -217,7 +217,10 @@ BSB data, useful for display or validation.
 
 ## BSB [/bsb/{bsb}]
 
-Supplied BSB numbers will be accepted by all endpoints on this API in any of the following formats: "638001", "638-001", "638 001".
+Supplied BSB numbers will be accepted by all endpoints on this API in any of these formats: "638001", "638-001", "638 001".
+
+It can also be used to validate BSB numbers, returning a 404 if it is invalid.
+
 We recommend always stripping spaces though, just to avoid any possible HTTP weirdness. 
 
 ### Retrieve BSB Data [GET]
