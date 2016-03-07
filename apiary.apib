@@ -211,3 +211,18 @@ If you submit your payment before 5pm on a Bank Business Day, the biller will ac
           "bitcoin_payment_address":"1AaxRWDPRbxXvYfFCjwNw4zQSf2tBXj9UA",
           "bitcoin_payment_amount":0.23723
         }
+
+# Group BSB
+BSB data, useful for display or validation.
+
+## BSB [/bsb/{bsb}]
+
+Supplied BSB numbers will be accepted by all endpoints on this API in any of the following formats: "638001", "638-001", "638 001".
+We recommend always stripping spaces though, just to avoid any possible HTTP weirdness. 
+
+### Retrieve BSB Data [GET]
++ Response 200 (application/json)
+
+        {"bsb":"638001","mnemonic":"HBS","bank_name":"Heritage Bank Limited"}
+
++ Response 404 (application/json)
